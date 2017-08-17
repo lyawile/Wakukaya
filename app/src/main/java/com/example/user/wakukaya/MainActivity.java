@@ -1,6 +1,7 @@
 package com.example.user.wakukaya;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,8 +14,7 @@ import com.example.user.second;
 
 
 public class MainActivity extends AppCompatActivity {
-public EditText text1;
-    public EditText text2;
+    public EditText text1, text2, text4;
     public Spinner text3;
     public TextView tFirstName;
     public TextView tSurname;
@@ -25,7 +25,8 @@ public EditText text1;
         setContentView(R.layout.activity_main);
         init();
     }
-    public void init(){
+
+    public void init() {
         final Button btn = (Button) findViewById(R.id.btnJisajili);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,15 +45,34 @@ public EditText text1;
 //                tSurname.setText(surname);
                 text3 = (Spinner) findViewById(R.id.gender);
                 String gender = text3.getSelectedItem().toString();
+                text4 = (EditText) findViewById(R.id.pNumber);
+                String phone = text4.getText().toString();
                 Intent i = new Intent(MainActivity.this, second.class);
-               i.putExtra("fName",firstName);
-               i.putExtra("sName", surname);
+                i.putExtra("fName", firstName);
+                i.putExtra("sName", surname);
                 i.putExtra("genderName", gender);
+                i.putExtra("phoneNumber", phone);
 
-
-                startActivity(i);
+                System.out.println(phone);
+               // startActivity(i);
 
             }
         });
+    }
+    public class registerTask extends AsyncTask<String, String, String>{
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            return null;
+        }
     }
 }
