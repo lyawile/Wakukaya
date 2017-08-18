@@ -12,13 +12,18 @@ import android.widget.TextView;
 
 import com.example.user.second;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 
 public class MainActivity extends AppCompatActivity {
     public EditText text1, text2, text4;
     public Spinner text3;
     public TextView tFirstName;
     public TextView tSurname;
-
+    String url = "http://duma.co.tz/api/connection.php?fname=Khadija&sname=Saibu&gender=female&phone=0685090488";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,23 +60,38 @@ public class MainActivity extends AppCompatActivity {
 
                 System.out.println(phone);
                // startActivity(i);
-
+                url="http://duma.co.tz/api/connection.php?fname="+firstName+"&sname="+surname+"&gender="+gender+"&phone="+phone+"";
+                new registerTask().execute();
             }
         });
     }
-    public class registerTask extends AsyncTask<String, String, String>{
+    public class registerTask extends AsyncTask<Object, Object, Void> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
         }
 
         @Override
-        protected void onPostExecute(String s) {
+        protected void onPostExecute(Void s) {
             super.onPostExecute(s);
         }
 
         @Override
-        protected String doInBackground(String... strings) {
+        protected Void doInBackground(Object... strings) {
+            try {
+                URL address;
+                address = new URL(url);
+                HttpURLConnection con = (HttpURLConnection) address.openConnection();
+                con.setRequestMethod("GET");
+                con.connect();
+
+                BufferedReader bf = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                String value = bf.readLine();
+                System.out.print(value);
+            }
+            catch (Exception e){
+                System.out.println(e);
+            }
             return null;
         }
     }
