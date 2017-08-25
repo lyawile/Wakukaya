@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +20,7 @@ import java.net.URL;
 
 
 public class MainActivity extends AppCompatActivity {
+    private final String TAG = MainActivity.class.getSimpleName();
     public EditText text1, text2, text4;
     public Spinner text3;
     public TextView tFirstName;
@@ -60,7 +62,12 @@ public class MainActivity extends AppCompatActivity {
 
                 System.out.println(phone);
                // startActivity(i);
-                url="http://duma.co.tz/api/connection.php?fname="+firstName+"&sname="+surname+"&gender="+gender+"&phone="+phone+"";
+                url="http://duma.co.tz/api/connection.php?fname=" +firstName+ "&sname=" + surname + "&gender=" + gender + "&phone=" + phone + "";
+                Log.d(TAG, firstName);
+                Log.d(TAG, surname);
+                Log.d(TAG, gender);
+                Log.d(TAG, phone);
+
                 new registerTask().execute();
             }
         });
@@ -90,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 System.out.print(value);
             }
             catch (Exception e){
-                System.out.println(e);
+                Log.d(TAG, e.getMessage());
             }
             return null;
         }
